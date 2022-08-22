@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- <script src="http://192.168.1.5:5000/socket.io/socket.io.js"></script> -->
+</head>
+<body>
+    <!-- <script src="http://localhost:5000/socket.io/socket.io.js"></script> -->
+    <!-- <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" 
+    integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" 
+    crossorigin="anonymous"></script> -->
+    <h1>Music Player</h1>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script src="play.js"></script>
+    
+    <form method='POST' enctype='multipart/form-data'>
+        {{form.hidden_tag()}}
+        {{form.file()}}
+        {{form.submit()}}
+    </form>
+    <script>
+        const socket = io.connect();
+
+        socket.on('connect', function() {
+            socket.emit('joined', name );
+            console.log('name' );
+        });
+
+        socket.on('message', function(songName) {
+            console.log('song name: '+ songName);
+            const node = document.createElement("h3");
+            node.innerHTML = songName;
+            document.body.appendChild(node);
+        });
+        
+        var audio = new Audio('static/files/1.mp3');
+        function upload(){
+            socket.emit('text','lkjlkj');
+            audio.play();
+            }
+    </script>
+</body>
+</html>
